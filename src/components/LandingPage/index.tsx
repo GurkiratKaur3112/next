@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { Button } from "../ui/moving-border";
-import { Spotlight } from "../ui/spotlight-new";
 import { NavbarDemo } from "./Navbar";
 import Text from "./text";
+import { BackgroundBeams } from "../ui/bg-beams";
 
 
 function LandingPage() {
@@ -14,7 +14,7 @@ function LandingPage() {
 
     {/* Hero */}
     <section className="min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden">
-      
+      <BackgroundBeams/>
       <div className="flex flex-col justify-center items-center gap-8 container -translate-y-40">
        <div className="container">
          <Text />
@@ -33,7 +33,7 @@ function LandingPage() {
         </Button>
        </div>
        </div>
-        <Spotlight/>
+        
     </section>
 
       
