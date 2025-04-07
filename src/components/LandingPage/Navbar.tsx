@@ -10,18 +10,18 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-} from "./ui/resizable-navbar";
+} from "../ui/resizable-navbar";
 import { useState } from "react";
 
 export function NavbarDemo() {
   const navItems = [
     {
-      name: "Features",
-      link: "#features",
+      name: "About",
+      link: "#About",
     },
     {
-      name: "Pricing",
-      link: "#pricing",
+      name: "Sheet",
+      link: "#Sheet",
     },
     {
       name: "Contact",
@@ -32,7 +32,7 @@ export function NavbarDemo() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="relative w-full m-1 p-1 ">
+    <div>
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
@@ -90,7 +90,7 @@ export function NavbarDemo() {
       
 
       {/* Navbar */}
-    </div>
+      </div>
   );
 }
 
