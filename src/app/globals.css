@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes meteor-fall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.animate-meteor-fall {
+  animation: meteor-fall linear forwards;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -25,4 +43,23 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes meteor {
+  0% {
+    transform: translateY(-50%) rotate(215deg) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50%) rotate(215deg) translateX(-1000px);
+    opacity: 0;
+  }
+}
+
+.animate-meteor {
+  animation: meteor 5s linear infinite;
+  transform: translateY(-50%) rotate(215deg) translateX(0);
 }
