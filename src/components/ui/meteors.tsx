@@ -1,42 +1,83 @@
-"use client";
-import React, { useEffect, useState } from "react";
+"use client"
+import { useEffect, useState } from "react"
 
-export const Meteors = ({ number }: { number?: number }) => {
-  const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>([]);
+export const Meteors = ({ number = 20 }: { number?: number }) => {
+  const [meteors, setMeteors] = useState<
+    Array<{
+      id: number
+      size: number
+      left: string
+      duration: number
+      delay: number
+    }>
+  >([])
 
   useEffect(() => {
-    const generateMeteors = () => {
-      const styles = [...Array(number || 20)].map(() => ({
-        top: 0,
-        left: Math.floor(Math.random() * 100) + "%",
-        animationDelay: Math.random() + "s",
-        animationDuration: Math.floor(Math.random() * 8 + 2) + "s",
-      }));
-      setMeteorStyles(styles);
-    };
+    // Generate initial meteors
+    const newMeteors = Array.from({ length: number }, (_, i) => ({
+      id: i,
+      size: Math.floor(Math.random() * 2) + 1, // Size between 1-3px
+      left: `${Math.floor(Math.random() * 95)}%`,
+      duration: Math.random() * 2 + 1, // Duration between 1-3s
+      delay: Math.random() * 3, // Delay between 0-3s
+    }))
 
-    generateMeteors();
-    const interval = setInterval(generateMeteors, 5000); // Regenerate every 5 seconds
+    setMeteors(newMeteors)
 
-    return () => clearInterval(interval);
-  }, [number]);
+    // Regenerate meteors periodically
+    const interval = setInterval(() => {
+      setMeteors((prev) => {
+        // Replace some meteors that have completed their animation
+        const updatedMeteors = [...prev]
+        const replaceCount = Math.floor(Math.random() * 5) + 3 // Replace 3-8 meteors at a time
+
+        for (let i = 0; i < replaceCount; i++) {
+          const indexToReplace = Math.floor(Math.random() * number)
+          updatedMeteors[indexToReplace] = {
+            id: prev[indexToReplace].id,
+            size: Math.floor(Math.random() * 2) + 1,
+            left: `${Math.floor(Math.random() * 95)}%`,
+            duration: Math.random() * 2 + 1,
+            delay: 0, // No delay for replacements
+          }
+        }
+
+        return updatedMeteors
+      })
+    }, 1000) // Update every second
+
+    return () => clearInterval(interval)
+  }, [number])
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {meteorStyles.map((style, idx) => (
-        <span
-          key={"meteor" + idx}
-          className="absolute h-1 w-1 rounded-full bg-white shadow-[0_0_6px_2px_#3b82f6] animate-meteor-fall"
+      {meteors.map((meteor) => (
+        <div
+          key={`meteor-${meteor.id}`}
+          className="absolute top-0 z-10"
           style={{
-            top: 0,
-            left: style.left,
-            animationDelay: style.animationDelay,
-            animationDuration: style.animationDuration,
+            left: meteor.left,
+            animationDelay: `${meteor.delay}s`,
+            animationDuration: `${meteor.duration}s`,
           }}
         >
-          <div className="absolute top-1/2 -translate-y-1/2 w-[100px] h-[1px] bg-gradient-to-b from-blue-400/0 via-blue-400/40 to-blue-400/0"></div>
-        </span>
+          <div
+            className="meteor-falling"
+            style={{
+              width: `${meteor.size}px`,
+              height: `${meteor.size * 80}px`,
+            }}
+          >
+            <div
+              className="meteor-head"
+              style={{
+                width: `${meteor.size * 2}px`,
+                height: `${meteor.size * 2}px`,
+              }}
+            />
+          </div>
+        </div>
       ))}
     </div>
-  );
-};
+  )
+}

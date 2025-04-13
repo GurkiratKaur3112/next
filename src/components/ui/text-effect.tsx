@@ -12,6 +12,7 @@ export const TextGenerateEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   let wordsArray = words.split(" ");
+  
   useEffect(() => {
     animate(
       "span",
@@ -32,7 +33,7 @@ export const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              className="text-4xl md:text-5xl lg:text-7xl text-center text-[#8AD4D3] relative z-20 opacity-0 p-2"
+              className="text-4xl md:text-5xl lg:text-7xl text-center font-extrabold relative z-20 opacity-0 p-2 bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent"
             >
               {word}{" "}
             </motion.span>
@@ -45,7 +46,7 @@ export const TextGenerateEffect = ({
   return (
     <div className={cn("font-bold ", className)}>
       <div className="mt-4">
-        <h1 className=" text-2xl leading-snug tracking-wider w-full text-center">
+        <h1 className="text-2xl leading-snug tracking-wider w-full text-center">
           {renderWords()}
         </h1>
       </div>
