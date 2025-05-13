@@ -82,6 +82,16 @@ const DialogDescription = React.forwardRef<
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
+const DialogActions = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("flex flex-col space-y-2", className)} {...props} />
+)
+DialogActions.displayName = "DialogActions"
+
+const DialogAction = ({ className, ...props }: React.HTMLAttributes<HTMLButtonElement>) => (
+  <button className={cn("rounded-sm bg-accent px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none", className)} {...props} />
+)
+DialogAction.displayName = "DialogAction"
+
 export {
   Dialog,
   DialogPortal,
@@ -93,4 +103,7 @@ export {
   DialogFooter,
   DialogTitle,
   DialogDescription,
+  DialogActions,
+  DialogAction,
 }
+
